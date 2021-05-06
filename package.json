@@ -1,0 +1,32 @@
+{
+  "name": "valley",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sherpavel/Delta.git"
+  },
+  "author": "PS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sherpavel/Delta/issues"
+  },
+  "homepage": "https://github.com/sherpavel/Delta#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "jquery": "^3.6.0",
+    "mongodb": "^3.6.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

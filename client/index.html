@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Delta game project">
+    <title>Valley</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+    <link rel="stylesheet" href="./style/main.css">
+    <link rel="stylesheet" href="./style/form.css">
+    <link rel="stylesheet" href="./style/user.css">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@1.3.1/lib/p5.min.js"></script>
+    
+    <script src="./src/settings.js"></script>
+    <script src="./src/core/Vector.js"></script>
+    <script src="./src/core/objects.js"></script>
+    <script src="./src/core/animations.js"></script>
+    <script src="./src/core/engine.js"></script>
+    <script src="./src/user.js"></script>
+    <script src="./src/form.js"></script>
+    <script src="./src/main.js"></script>
+</head>
+<body>
+    <script>document.body.classList.add('fade');</script>
+    <div id="game">
+        <div id="canvas"></div>
+        <div id="score">
+            Current score: <span id="current_score"></span>
+            <br>
+            Your best score: <span id="best_score"></span>
+        </div>
+    </div>
+</body>
+</html>
