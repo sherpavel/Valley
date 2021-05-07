@@ -128,9 +128,7 @@ app.put('/session/score', async (req, res) => {
         res.status(401).send("Not logged in");
         return;
     }
-
     let score = Number(req.body.score);
-    console.log(req.body);
 
     let client = MongoClient(connectionString, {
         useNewUrlParser: true,
@@ -139,14 +137,15 @@ app.put('/session/score', async (req, res) => {
     await client.connect();
     let db = client.db("Delta");
     let data = db.collection("Data");
-
     await data.findOneAndUpdate({
         user: req.session.data.user
-    }, {
+    },
+    {
         $max: {
             score: score
         }
-    }, {
+    },
+    {
         upsert: true
     });
 
@@ -160,6 +159,43 @@ app.put('/session/score', async (req, res) => {
     client.close();
 });
 
+// Update theme setting
+app.put('/session/theme', async (req, res) => {
+    req.session.data.theme_id = Number(req.body.theme_id);
+    if (req.body.saveToDB) {
+        let client = MongoClient(connectionString, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        await client.connect();
+        let db = client.db("Delta");
+        let data = db.collection("Data");
+    
+        await data.findOneAndUpdate({
+            user: req.session.data.user
+        },
+        {
+            $set: {
+                theme_id: req.session.data.theme_id
+            }
+        },
+        {
+            upsert: true
+        });
+    
+        res.status(200).send({
+            msg: "Theme updated and saved",
+            theme_id: req.session.data.theme_id
+        });
+        
+        client.close();
+    } else {
+        res.status(200).send({
+            msg: "Theme updated",
+            theme_id: req.session.data.theme_id
+        });
+    }
+});
 
 const minLoginLength = 4;
 const maxLoginLength = 12;

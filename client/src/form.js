@@ -20,7 +20,7 @@ function hideForm() {
 }
 
 function newForm(title) {
-    let form = $("<div>").attr('id', "form");
+    let form = $("<form>").attr('id', "form");
     form.append($("<div>").attr('id', "title").addClass("section").text(title));
     let closeButton = newButton("", "close", () => {
         showMenu(MENU_LAST_MODE);
@@ -60,7 +60,7 @@ function showSignInForm() {
         .attr('id', "passField")
         .addClass("section");
     let passLabel = newLabel("Password");
-    let passInput = newInput("password", "Password", "text");
+    let passInput = newInput("password", "Password", "password");
     pass.append(passLabel, passInput);
     add(pass);
 

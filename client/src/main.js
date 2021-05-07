@@ -8,8 +8,9 @@ async function startup() {
     let coords = await getCoords(ip);
     WEATHER_CYCLE = await getWeather(coords);
     // WEATHER_CYCLE = DEFAULT_WEATHER_CYCLE;
+    start();
 }
-startup().then(start);
+window.onload = startup;
 
 async function getIP() {
     let ip;
@@ -69,11 +70,18 @@ async function getWeather(coords) {
 }
 
 let USER_DATA;
+const THEME_ID = {
+    DARK: 0,
+    LIGHT: 1
+};
+let PREV_THEME;
 //=== Start ===//
 async function start() {
     startCanvas();
     document.body.classList.remove("fade");
     let root = $(document.body);
+
+    showMenu(MENU_MODE.START);
 
     // Read session data, if possible
     await axios.get('/session/data').then((response) => {
@@ -83,6 +91,8 @@ async function start() {
     setScore(0);
     setBestScore(0);
     if (USER_DATA) {
+        PREV_THEME = USER_DATA.theme_id;
+        if (USER_DATA.theme_id === THEME_ID.LIGHT) toggleTheme(false);
         setBestScore(USER_DATA.score);
         showUI(USER_DATA);
     } else {
@@ -106,8 +116,25 @@ async function start() {
         });
         root.append($("<div>").attr('id', "sign_buttons").append(signinButton, signupButton));
     }
+}
 
-    showMenu(MENU_MODE.START);
+function toggleTheme(reassign=true) {
+    let backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
+    let fontColor = getComputedStyle(document.documentElement).getPropertyValue('--font-color');
+    document.documentElement.style.setProperty('--background-color', fontColor);
+    document.documentElement.style.setProperty('--font-color', backgroundColor);
+    $("#menu").toggleClass("light");
+    if (!reassign) return;
+    if (USER_DATA.theme_id === THEME_ID.LIGHT) USER_DATA.theme_id = THEME_ID.DARK;
+    else USER_DATA.theme_id = THEME_ID.LIGHT;
+}
+async function saveTheme(saveToDB=false) {
+    if (saveToDB && USER_DATA.theme_id === PREV_THEME) return;
+    if (saveToDB) PREV_THEME = USER_DATA.theme_id;
+    await axios.put('/session/theme', {
+        theme_id: USER_DATA.theme_id,
+        saveToDB: saveToDB
+    });
 }
 
 //=== Menu ===//
@@ -116,30 +143,32 @@ const MENU_MODE = {
     PAUSE: 1
 };
 let MENU_LAST_MODE;
+function handleInput(e) {
+    if (e.code === "Space") {
+        document.removeEventListener("keydown", handleInput);
+        hideMenu();
+        startGame();
+    }
+}
 function showMenu(mode) {
     if ($("#menu").length) return;
 
     MENU_LAST_MODE = mode;
 
     let menu = $("<div>").attr('id', "menu");
+    if (USER_DATA) if (USER_DATA.theme_id === THEME_ID.LIGHT) menu.addClass("light");
 
-    menu.append(
-        $("<div>").attr('id', "title").addClass("section").text("Valley")
-    );
+    menu.append($("<div>")
+        .attr('id', "title")
+        .addClass("section")
+        .text("Valley"));
 
     if (mode === MENU_MODE.START) {
         menu.append(newButton("Start", "start", () => {
+            shiftUp();
             hideMenu();
             startGame();
         }).addClass("section"));
-
-        function handleInput(e) {
-            if (e.code === "Space") {
-                document.removeEventListener("keydown", handleInput);
-                hideMenu();
-                startGame();
-            }
-        }
         document.addEventListener("keydown", handleInput);
     } else if (mode === MENU_MODE.PAUSE) {
         menu.append(newButton("Resume", "resume", () => {
@@ -156,13 +185,15 @@ function showMenu(mode) {
     $("#game").append(menu);
 }
 function hideMenu() {
+    document.removeEventListener("keydown", handleInput);
     $("#menu").remove();
 }
 
 //=== UI ===//
-const HOWTO_TEXT = 'Press “Start” or spacebar to start the game. Press and hold the left mouse button or spacebar to push the player up and evade the obstacles. Have fun!';
+const HOWTO_TEXT = 'Press “Start” or spacebar to start the game. Press and hold left mouse button or spacebar to move up and evade the obstacles. Have fun!';
 function showInfo(text) {
     let infoPanel = $("<div>").attr('id', "info");
+    if (USER_DATA) if (USER_DATA.theme_id === THEME_ID.LIGHT) infoPanel.addClass("light");
     infoPanel.text(text);
     let closeButton = newButton("", "close", () => {
         showMenu(MENU_LAST_MODE);
@@ -202,11 +233,12 @@ function newButton(text, id, onClick) {
         .on('click', onClick);
 }
 
-function newToggle(text, id) {
+function newToggle(text, id, onClick) {
     return $("<div>")
         .attr('id', id)
         .addClass("toggle")
         .text(text)
+        .on('click', onClick);
 }
 
 function newLabel(text, id=undefined) {

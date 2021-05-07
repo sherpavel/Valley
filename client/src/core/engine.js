@@ -6,7 +6,7 @@ let playerPos;
 let targetPos;
 let playerVelocity = -VELOCITY;
 
-let trail = new Array(50);
+let tail = new Array(50);
 let playerParticles = new Array(200);
 
 let obstacles = [];
@@ -68,9 +68,9 @@ function resetGame(crtTime=0) {
     playerPos = new Vector(width/4, height/2);
     targetPos = new Vector(playerPos.x, playerPos.y);
 
-    let trailStep = (playerPos.x + COLLISION_RADIUS) / trail.length;
-    for (let i = 0; i < trail.length; i++)
-        trail[i] = new Vector(playerPos.x - trailStep*i, playerPos.y);
+    let tailStep = (playerPos.x + COLLISION_RADIUS) / tail.length;
+    for (let i = 0; i < tail.length; i++)
+        tail[i] = new Vector(playerPos.x - tailStep*i, playerPos.y);
 
     obstacles = [];
     newObstaclePos = 0;
@@ -148,31 +148,31 @@ function updatePlayer() {
         playerPos.y = targetPos.y;
     }
 
-    // Trail
-    trail[0].y = playerPos.y;
-    for (let i = 1; i < trail.length; i++) {
-        trail[i].y = lerp(trail[i].y, trail[i-1].y, 0.7);
+    // Tail
+    tail[0].y = playerPos.y;
+    for (let i = 1; i < tail.length; i++) {
+        tail[i].y = lerp(tail[i].y, tail[i-1].y, 0.7);
     }
 }
 function drawPlayer() {
     // Player
     noFill();
-    stroke(0, 153, 247);
+    stroke(toColor(TAIL_GRADIENT[TAIL_GRADIENT.length-1]));
     strokeWeight(COLLISION_RADIUS/8);
     ellipse(playerPos.x, playerPos.y, 2*COLLISION_RADIUS);
 
-    // Trail
+    // Tail
     strokeJoin(ROUND);
-    for (let i = 0; i < trail.length-1; i++) {
-        let p = i / trail.length;
-        stroke(getGradient(TRAIL_GRADIENT, p));
+    for (let i = 0; i < tail.length-1; i++) {
+        let p = i / tail.length;
+        stroke(getGradient(TAIL_GRADIENT, 1-p));
         strokeWeight(COLLISION_RADIUS * (p/2 + 0.8));
-        line(trail[i].x, trail[i].y, trail[i+1].x, trail[i+1].y);
+        line(tail[i].x, tail[i].y, tail[i+1].x, tail[i+1].y);
     }
 
+    // Inner shadow
     noStroke();
-
-    fill(0, 51);
+    fill(toColor(TAIL_GRADIENT[0], 100));
     ellipse(playerPos.x, playerPos.y, 2*COLLISION_RADIUS);
 }
 

@@ -51,13 +51,13 @@ function playLost() {
         drawMask();
     }
 
-    // Trail - first stage
-    for (let i = 0; i < trail.length; i++) {
-        trail[i] = trail[i].lerp(playerPos, 0.4);
+    // Tail - first stage
+    for (let i = 0; i < tail.length; i++) {
+        tail[i] = tail[i].lerp(playerPos, 0.4);
     }
 
     // Explode - second stage
-    if (trail[trail.length-1].sub(playerPos).lgt < COLLISION_RADIUS/2 
+    if (tail[tail.length-1].sub(playerPos).lgt < COLLISION_RADIUS/2 
         && getAnimationTime() < 1200) {
         NO_CLEAR = true;
         noStroke();
@@ -67,7 +67,7 @@ function playLost() {
             playerParticles[i].r /= 1.05;
             fill(getGradient(
                 EXPLODE_GRADIENT,
-                (playerParticles[i].r / COLLISION_RADIUS),
+                clamp(playerParticles[i].r/(COLLISION_RADIUS*0.8), 0, 1),
                 255*(0.5 + 0.5*Math.sqrt(playerParticles[i].r / COLLISION_RADIUS))
                 ));
             ellipse(playerParticles[i].pos.x, playerParticles[i].pos.y, 2*playerParticles[i].r);

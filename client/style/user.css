@@ -1,3 +1,10 @@
+#ui {
+    transition: transform 0.3s;
+}
+#ui.shift_down {
+    transform: translateY(100px);
+}
+
 #ui #username {
     position: fixed;
     top: 0;
@@ -6,15 +13,15 @@
     background: var(--gradient);
     padding: 10px 10px 10px 10px;
     border-radius: 0 0 10px 10px;
-    box-shadow: 0 10px 5px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.5);
+    color: var(--white);
     font-size: 35px;
     text-align: center;
     cursor: pointer;
-    opacity: 0.7;
+    opacity: 0.8;
     transition: all 0.3s;
 }
 #ui #username:hover {
-    box-shadow: 0 0 0 3px var(--font-color);
     opacity: 1;
 }
 #ui #username:hover > #dropdown_arrow {
@@ -39,21 +46,38 @@
 
 #ui #options {
     position: fixed;
-    top: -120px;
+    top: -100px;
     right: 8%;
-    width: 84%;
-    height: 120px;
+    height: 60px;
+    padding: 20px;
+
+    display: flex;
+    gap: 10px;
+
     background-color: var(--font-color);
     color: var(--background-color);
     border-radius: 0 0 0 20px;
 }
-#ui #options > * {
-    display: inline-block;
-    margin: 0;
+#ui .button {
+    border-radius: 0 0 0 10px;
+    background-color: var(--background-color);
+    color: var(--font-color);
 }
-#ui #signout {
-    position: absolute;
-    right: 4%;
-    top: 50%;
-    transform: translateY(-50%) translateY(10px);
+#ui .button:hover {
+    box-shadow: 3px 3px 10px 0px rgba(0,0,0);
+    background-color: var(--font-color);
+    color: var(--background-color);
+}
+#ui .toggle {
+    border-radius: 0 0 0 10px;
+    background-color: var(--background-color);
+    color: var(--font-color);
+}
+#ui .toggle.on {
+    background-color: var(--font-color);
+    color: var(--background-color);
+}
+#ui .toggle:hover {
+    background-color: var(--font-color);
+    color: var(--background-color);
 }

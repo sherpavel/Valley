@@ -1,6 +1,8 @@
 :root {
     --background-color: rgb(40, 40, 40);
     --font-color: #eee;
+    --white: rgb(238, 238, 238);
+    --black: rgb(40, 40, 40);
     --secondary-color: rgb(100, 100, 100);
 
     --gradient-start: #4A00E0;
@@ -42,7 +44,7 @@ body.fade {
     margin: 5px;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 3px 3px 10px 0px rgba(0,0,0);
+    box-shadow: 5px 5px 10px 0px rgba(0,0,0);
     text-align: center;
     transition: all 0.1s ease-in-out;
 }
@@ -50,8 +52,16 @@ body.fade {
     box-shadow: 0px 0px 0px 3px var(--font-color);
     cursor: pointer;
 }
-.shift_down {
-    transform: translateY(100px);
+.toggle {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px 0px rgba(0,0,0);
+    text-align: center;
+    transition: all 0.1s ease-in-out;
+}
+.toggle:hover {
+    cursor: pointer;
 }
 #close {
     position: fixed;
@@ -65,7 +75,7 @@ body.fade {
     font-size: 30px;
 
     width: 25px;
-    opacity: 0.3;
+    opacity: 0.5;
     transition: opacity 0.5s;
 }
 #close:hover {
@@ -81,11 +91,15 @@ body.fade {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-
     padding: 30px;
     border-radius: 10px;
-    box-shadow: inset 0 0 30px 0px rgba(0,0,0);
+    box-shadow: inset 0 0 30px 0 rgba(0,0,0);
     backdrop-filter: var(--backdrop-blur);
+    color: var(--font-color);
+}
+#info.light {
+    background-color: rgb(255, 255, 255, 0.5);
+    backdrop-filter: none;
 }
 
 /* Sign in/up */
@@ -102,7 +116,7 @@ body.fade {
 /* Game */
 canvas {
     border-radius: 100px 10px;
-    box-shadow: 0 0 20px 5px rgba(0,0,0);
+    box-shadow: 0 0 50px 0 rgba(0,0,0);
     transition: all 0.05s ease-in-out;
 }
 
@@ -112,11 +126,14 @@ canvas {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-
     padding: 30px;
     border-radius: 10px;
-    box-shadow: inset 0 0 30px 0px rgba(0,0,0);
+    box-shadow: inset 0 0 20px 0px #000;
     backdrop-filter: var(--backdrop-blur);
+}
+#menu.light {
+    background-color: rgba(238, 238, 238, 0.8);
+    backdrop-filter: none;
 }
 #menu .section {
     margin: 20px 0 20px 0;
@@ -128,6 +145,7 @@ canvas {
     margin-bottom: 30px;
 }
 #menu #start {
+    color: var(--white);
     background: var(--gradient);
 }
 

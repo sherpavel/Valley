@@ -1,7 +1,7 @@
 let CANVAS_RATIO = 4/3;
 
-const VELOCITY = 10;
-const OBSTACLE_VELOCITY = 11;
+const VELOCITY = 9;
+const OBSTACLE_VELOCITY = 10;
 
 const COLLISION_RADIUS = 30;
 
@@ -25,20 +25,27 @@ const ANIMATION = {
     LOST: 1
 }
 
-const TRAIL_GRADIENT = [
-    [0, 153, 247],
-    [241, 23, 18]
-];
-const EXPLODE_GRADIENT = [
-    // Watching Hour
-    [195, 20, 50],
-    [36, 11, 54]
-    // // Argon
-    // [3, 0, 30],
-    // [115, 3, 192],
-    // [236, 56, 188],
-    // [253, 239, 249]
-];
+const GRADIENTS = {
+    Argon: [
+        [3, 0, 30],
+        [115, 3, 192],
+        [236, 56, 188],
+        [253, 239, 249]
+    ],
+    Atlas: [
+        [254, 172, 94],
+        [199, 121, 208],
+        [75, 192, 200]
+    ],
+    WitchingHour: [
+        [195, 20, 50],
+        [36, 11, 54]
+    ],
+}
+
+let TAIL_GRADIENT = GRADIENTS.WitchingHour.slice().reverse();
+// TAIL_GRADIENT.push([191, 233, 255]);
+const EXPLODE_GRADIENT = GRADIENTS.WitchingHour;
 
 const TIME_ID = {
     NIGHT: 0,
