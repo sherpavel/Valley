@@ -37,14 +37,18 @@ const GRADIENTS = {
         [199, 121, 208],
         [75, 192, 200]
     ],
+    JShine: [
+        [18, 194, 233],
+        [196, 113, 237],
+        [246, 79, 89]
+    ],
     WitchingHour: [
         [195, 20, 50],
         [36, 11, 54]
     ],
 }
 
-let TAIL_GRADIENT = GRADIENTS.WitchingHour.slice().reverse();
-// TAIL_GRADIENT.push([191, 233, 255]);
+let TAIL_GRADIENT = GRADIENTS.JShine.slice().reverse();
 const EXPLODE_GRADIENT = GRADIENTS.WitchingHour;
 
 const TIME_ID = {
@@ -133,7 +137,7 @@ const WEATHER_TYPE = {
         heavy: {
             mask: 150,
             clouds: [200, 200, 200],
-            amount: 400,
+            amount: 300,
             v: 20,
         },
     }

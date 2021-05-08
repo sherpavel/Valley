@@ -172,7 +172,7 @@ function drawPlayer() {
 
     // Inner shadow
     noStroke();
-    fill(toColor(TAIL_GRADIENT[0], 100));
+    fill(toColor(TAIL_GRADIENT[TAIL_GRADIENT.length-1], 100));
     ellipse(playerPos.x, playerPos.y, 2*COLLISION_RADIUS);
 }
 
