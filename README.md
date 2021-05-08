@@ -1,5 +1,5 @@
 # Valley
-[![Valley](Valley.png)](valley-journey.herokuapp.com/)  
+[![Valley](Valley.png)](https://valley-journey.herokuapp.com/)  
 
 ## Table of contents
 - [Description](#description)
