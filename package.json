@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sherpavel/Delta.git"
+    "url": "git+https://github.com/sherpavel/Valley.git"
   },
   "author": "PS",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sherpavel/Delta/issues"
+    "url": "https://github.com/sherpavel/Valley/issues"
   },
-  "homepage": "https://github.com/sherpavel/Delta#readme",
+  "homepage": "https://github.com/sherpavel/Valley#readme",
   "dependencies": {
     "axios": "^0.21.1",
     "express": "^4.17.1",
